@@ -1,0 +1,6 @@
+- name: Start the swarm agent
+  docker:
+    name: swarm_agent
+    image: swarm
+    command: join --advertise={{ hostvars[inventory_hostname]['ansible_' + docker_adapter]['ipv4']['address'] }}:2375 consul://{{ hostvars[groups['kv'][0]]['ansible_' + docker_adapter]['ipv4']['address'] }}:8500/
+    state: started
